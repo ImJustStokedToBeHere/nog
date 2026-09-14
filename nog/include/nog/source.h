@@ -7,7 +7,7 @@
 #include "nog/hash.h"
 #include "nog/id.h"
 #include "nog/macros.h"
-#include "nog/util/file.h"
+// #include "nog/util/file.h"
 #include "nog/util/hash.h"
 #include "nog/util/time.h"
 #include "nog/util/types.h"
@@ -23,6 +23,7 @@
 #include <unordered_set>
 
 namespace nog {
+    typedef std::filesystem::path Filepath;
 
     class Position;
     class SrcFragment;
@@ -41,12 +42,7 @@ namespace nog {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     using SrcId = AutoIncId<size_t>;
 
-    SrcId src_id_from_name_and_pkg(const std::string& name, const PkgId& pkg) {
-        size_t seed{0};
-        combine_hashes(seed, name);
-        combine_hashes(seed, pkg.value());
-        return SrcId(seed);
-    }
+    SrcId src_id_from_name_and_pkg(const std::string& name, const PkgId& pkg);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // class SrcId {
@@ -87,8 +83,9 @@ namespace nog {
         Pos(Pos&& other) = default;
 
         Pos(size_t value) {
-            NOG_ASSERT(value < std::numeric_limits<T>::max(), "Pos::value larger than integer type can contain");
-            this->val = value;
+            NOG_ASSERT(static_cast<T>(value) <= std::numeric_limits<T>::max(),
+                       "Pos::value larger than integer type can contain");
+            this->val = static_cast<T>(value);
         }
 
         T value() const { return this->val; }
@@ -187,17 +184,7 @@ namespace nog {
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     enum class RetentionPolicy { Static, Volatile };
 
-    INLINE RetentionPolicy retention_policy_from_src_kind(SrcKind kind) {
-        switch (kind) {
-            case SrcKind::UserFile:
-            case SrcKind::AnonFile:
-            case SrcKind::MacroExpansion: {
-                return RetentionPolicy::Static;
-            }
-            default:
-                return RetentionPolicy::Volatile;
-        }
-    }
+    RetentionPolicy retention_policy_from_src_kind(SrcKind kind);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     enum class SrcErr : uint32_t {
@@ -790,14 +777,7 @@ namespace nog {
             }
         }
 
-        std::expected<std::string, SrcErr> get_text_from_file(const std::string& filename) {
-            std::unique_ptr<char[]> data;
-            if (read_file_data(filename.c_str(), 0, data) > 0) {
-                return std::string(data.get());
-            }
-
-            return std::unexpected(SrcErr::FailedToReadSrcFile);
-        }
+        std::expected<std::string, SrcErr> get_text_from_file(const std::string& filename);
 
         std::optional<std::shared_ptr<SrcFragment>> find_src_entry(const std::string& name,
                                                                    const PkgId& pkg) const {
@@ -809,7 +789,7 @@ namespace nog {
             this->cache.cache_fragment(fragment_handle, resolved_filename);
         }
 
-        std::expected<std::string, SrcErr> get_str_from_span(const AbsolutePos& pos) const {}
+        std::expected<std::string, SrcErr> get_str_from_span(const AbsolutePos& pos) const { return ""; }
     };
 
     class SpanCache {

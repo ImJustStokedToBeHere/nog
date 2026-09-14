@@ -2,7 +2,7 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 21,
+    "minor": 8,
     "patch": 0
   },
   "configurePresets": [
@@ -35,7 +35,7 @@
       "cacheVariables": {
         "ENABLE_CPPCHECK_DEFAULT": "FALSE",
         "ENABLE_CLANG_TIDY_DEFAULT": "FALSE",
-        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_CXX_STANDARD": "23",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "TRUE"
       },
       "environment": {

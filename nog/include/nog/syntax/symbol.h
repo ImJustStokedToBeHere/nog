@@ -4,9 +4,10 @@
 #include <compare>
 #include <cstdint>
 #include <cstring>
-#include <string>
+#include <limits>
+#include <map>
+#include <optional>
 #include <string_view>
-#include <unordered_set>
 
 namespace nog {
 
@@ -43,80 +44,64 @@ namespace nog {
 
     class SymbolCache {
     private:
-        size_t block_size;
-        char* current_block;
-        size_t current_index;
-        std::vector<std::unique_ptr<char[]>> blocks;
-        std::unordered_set<std::string_view> set;
+        struct CacheInternals {
+            size_t block_size;
+            char* current_block;
+            size_t current_index;
+            std::vector<std::unique_ptr<char[]>> blocks;
+            std::vector<std::string_view> set;
+            std::map<std::string_view, size_t> lookup;
 
-        char* allocate_new_block(size_t size) {
-            auto block = std::make_unique<char[]>(size);
-            char* raw_ptr = block.get();
-            blocks.push_back(std::move(block));
+            explicit CacheInternals(size_t block_size = 64 * 1024)
+                : block_size(block_size), current_block(nullptr), current_index(0), set{}, lookup{} {}
 
-            // Only track this as the active block if it's the standard size
-            if (size == block_size) {
-                current_block = raw_ptr;
-                current_index = 0;
-            }
-            return raw_ptr;
-        }
+            // Disable copying to prevent double-free issues
+            CacheInternals(const CacheInternals&) = delete;
+            CacheInternals& operator=(const CacheInternals&) = delete;
 
-        // Allocate a raw chunk of bytes
-        char* allocate(size_t size) {
-            if (size == 0)
-                return nullptr;
+            ~CacheInternals() { this->reset(); }
 
-            // If the request exceeds the current block size, allocate a custom oversized block
-            if (size > block_size) {
-                return allocate_new_block(size);
-            }
+            char* allocate_new_block(size_t size);
 
-            // If no block exists or the current one is full, allocate a standard block
-            if (!current_block || current_index + size > block_size) {
-                allocate_new_block(block_size);
+            // Allocate a raw chunk of bytes
+            char* allocate(size_t size);
+
+            Symbol cache_string(std::string_view str);
+
+            std::optional<std::string_view> get_cached_string(const Symbol& sym) const;
+
+            template <size_t LEN>
+            Symbol cache_bytes(const std::array<std::byte, LEN>& bytes) const {
+                return this->cache_string(bytes.data());
             }
 
-            char* ptr = current_block + current_index;
-            current_index += size;
-            return ptr;
-        }
+            bool str_is_cached(std::string_view str) const;
+
+            // Free all allocated blocks at once
+            void reset();
+        };
+
+        CacheInternals impl;
 
     public:
         // Initialize with a default block size (e.g., 64 KB)
-        explicit SymbolCache(size_t block_size = 64 * 1024)
-            : block_size(block_size), current_block(nullptr), current_index(0) {}
+        explicit SymbolCache(size_t block_size = 64 * 1024) : impl{block_size} {}
 
         // Disable copying to prevent double-free issues
         SymbolCache(const SymbolCache&) = delete;
         SymbolCache& operator=(const SymbolCache&) = delete;
 
+        ~SymbolCache();
+
         // Cache a string and return a lightweight string_view pointing to the arena
-        Symbol cache_string(std::string_view str) {
-            if (this->set.size() >= std::numeric_limits<uint32_t>::max()) {
-                return Symbol::INVALID;
-            }
+        Symbol cache_string(std::string_view str);
 
-            if (auto found = this->set.find(str); found != this->set.end()) {
-                uint32_t dist = std::distance(this->set.begin(), found);
-                return Symbol(dist);
-            }
+        std::optional<std::string_view> get_cached_string(const Symbol& sym) const;
 
-            char* allocated_mem = allocate(str.size());
-            std::memcpy(allocated_mem, str.data(), str.size());
-            auto cached_str = std::string_view(allocated_mem, str.size());
-            auto result = this->set.insert(cached_str);
-            uint32_t dist = std::distance(this->set.begin(), result.first);
-
-            return Symbol(dist);
-        }
+        bool str_is_cached(std::string_view str) const;
 
         // Free all allocated blocks at once
-        void reset() {
-            blocks.clear(); // Automatically deletes all unique_ptr blocks
-            current_block = nullptr;
-            current_index = 0;
-        }
+        void reset();
     };
 
 } // namespace nog

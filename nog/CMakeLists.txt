@@ -19,13 +19,13 @@ set(HDR
     "macros.h"
     "version.h"
     "diagnostics.h"
+    "enum_ops.h"
+    "flag_ops.h"
     "util/time.h"
     "util/file.h"
     "util/types.h"
     "util/hash.h"
     "util/allocator.h"
-    "enum_ops.h"
-    "flag_ops.h"
     "syntax/symbol.h"
     "syntax/token.h"
     "syntax/ast.h"
@@ -34,7 +34,7 @@ set(HDR
 list(TRANSFORM HDR PREPEND "include/nog/")
 
 set(SRC "nog.cpp" "source.cpp" "util/time.cpp" "util/file.cpp"
-        "diagnostics.cpp")
+        "syntax/symbol.cpp" "diagnostics.cpp")
 
 list(TRANSFORM SRC PREPEND "src/")
 
@@ -50,9 +50,8 @@ message(STATUS "BUILDING: nog")
 
 set_target_properties(nog PROPERTIES OUTPUT_NAME "nog" CXX_STANDARD 23)
 
-# TODO: Add tests and install targets if needed.
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# TODO: Add tests and install targets if needed. set(CMAKE_CXX_STANDARD 23)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # if(MSVC_VERSION GREATER_EQUAL "1900") include(CheckCXXCompilerFlag)
 # check_cxx_compiler_flag("/std:c++20" _cpp_latest_flag_supported)

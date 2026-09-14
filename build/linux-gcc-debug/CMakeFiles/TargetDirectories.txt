@@ -1,0 +1,11 @@
+/home/stoked/repos/nog/build/linux-gcc-debug/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nog/CMakeFiles/nog.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nog/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nog/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nogcl/CMakeFiles/nogcl.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nogcl/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/nogcl/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/scratch/CMakeFiles/scratch.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/scratch/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-gcc-debug/scratch/CMakeFiles/rebuild_cache.dir

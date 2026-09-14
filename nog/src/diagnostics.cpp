@@ -1,6 +1,6 @@
 #include "nog/diagnostics.h"
 
-namespace nog {
+namespace nog::dx {
 
     std::string error_msg(StatErr ec) {
         switch (ec) {
@@ -13,4 +13,4 @@ namespace nog {
         }
     }
 
-} // namespace nog
+} // namespace nog::dx

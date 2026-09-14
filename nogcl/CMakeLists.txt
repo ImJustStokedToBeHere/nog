@@ -4,9 +4,8 @@ message(STATUS "BUILDING: nogcl")
 
 set_target_properties(nogcl PROPERTIES OUTPUT_NAME "nogcl" CXX_STANDARD 20)
 
-# TODO: Add tests and install targets if needed.
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# TODO: Add tests and install targets if needed. set(CMAKE_CXX_STANDARD 23)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # if(MSVC_VERSION GREATER_EQUAL "1900") include(CheckCXXCompilerFlag)
 # check_cxx_compiler_flag("/std:c++20" _cpp_latest_flag_supported)
@@ -37,21 +36,22 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
   # set_target_properties(nogcl PROPERTIES LINK_FLAGS "/lldmap:nogcl.map")
 
-  set_target_properties(
-    nogcl PROPERTIES LINK_FLAGS "-Wl,-Map=${CMAKE_BINARY_DIR}/nogcl.map")
-  # target_link_options(nogcl PRIVATE "/lldmap:${CMAKE_BINARY_DIR}/nogcl.map")
+  # set_target_properties( nogcl PROPERTIES LINK_FLAGS
+  # "-W,-Map=${CMAKE_BINARY_DIR}/nogcl.map") target_link_options(nogcl PRIVATE
+  # "/lldmap:${CMAKE_BINARY_DIR}/nogcl.map")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   # using GCC message(STATUS " nogcl: using GCC")
   message(STATUS " nogcl: CMAKE_COMPILER_IS_GNUCXX: "
                  ${CMAKE_COMPILER_IS_GNUCXX})
-  set_target_properties(nogcl PROPERTIES LINK_FLAGS "-Wl -map,nogcl.map")
+  # set_target_properties( nogcl PROPERTIES LINK_FLAGS
+  # "-Wl,-Map=${CMAKE_BINARY_DIR}/nogcl.map")
 
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   # using Intel C++ message(STATUS " nogcl: using Intel C++")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   # using Visual Studio C++ message(STATUS " nogcl: using Visual Studio C++")
 
-  set_target_properties(nogcl PROPERTIES LINK_FLAGS "-MAP:nogcl.map")
+  # set_target_properties(nogcl PROPERTIES LINK_FLAGS "-MAP:nogcl.map")
 endif()
 
 target_link_libraries(nogcl PRIVATE nog)

@@ -1,0 +1,126 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "nog",
+					"jsonFile" : "directory-nog-Debug-7ad8da3b69bf19aa780d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "nog",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "nogcl",
+					"jsonFile" : "directory-nogcl-Debug-834bdfa0f6ecaab981a2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "nogcl",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "scratch",
+					"jsonFile" : "directory-scratch-Debug-84c3d4857e140a6d4723.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "scratch",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "nog",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "nog::@31779d411ec9c3961ccb",
+					"jsonFile" : "target-nog-Debug-286bf9141435c7413fb6.json",
+					"name" : "nog",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "nogcl::@3dae68c2eb34724470df",
+					"jsonFile" : "target-nogcl-Debug-93da903def3258fcc747.json",
+					"name" : "nogcl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "scratch::@12119f3906236ec082b9",
+					"jsonFile" : "target-scratch-Debug-91d7d4c79430550e8da7.json",
+					"name" : "scratch",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/stoked/repos/nog/build/linux-gcc-debug",
+		"source" : "/home/stoked/repos/nog"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

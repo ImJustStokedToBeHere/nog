@@ -1,6 +1,8 @@
 
 #include "nog/source.h"
 
+#include "nog/util/file.h"
+
 namespace nog {
     const Span& Span::EMPTY = Span(0, 0);
     const Span& Span::INVALID = Span(0, 0);
@@ -143,6 +145,25 @@ namespace nog {
         return std::unexpected(SrcErr::FilenameNotResolved);
     }
 
+    SrcId src_id_from_name_and_pkg(const std::string& name, const PkgId& pkg) {
+        size_t seed{0};
+        combine_hashes(seed, name);
+        combine_hashes(seed, pkg.value());
+        return SrcId(seed);
+    }
+
+    RetentionPolicy retention_policy_from_src_kind(SrcKind kind) {
+        switch (kind) {
+            case SrcKind::UserFile:
+            case SrcKind::AnonFile:
+            case SrcKind::MacroExpansion: {
+                return RetentionPolicy::Static;
+            }
+            default:
+                return RetentionPolicy::Volatile;
+        }
+    }
+
     std::string error_msg(const SrcErr& err) {
         switch (err) {
             case nog::SrcErr::SrcFileTooLarge: {
@@ -163,5 +184,13 @@ namespace nog {
             default:
                 return "unknown SrcCodeErrKind";
         }
+    }
+    std::expected<std::string, SrcErr> SrcManager::get_text_from_file(const std::string& filename) {
+        std::unique_ptr<char[]> data;
+        if (read_file_data(filename.c_str(), 0, data) > 0) {
+            return std::string(data.get());
+        }
+
+        return std::unexpected(SrcErr::FailedToReadSrcFile);
     }
 } // namespace nog
