@@ -1,0 +1,84 @@
+{
+  "configurations": [
+    {
+      "name": "x64-MSVC-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": ["msvc_x64_x64"],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "xaddressSanitizerEnabled": true,
+      "intelliSenseMode": "windows-msvc-x64",
+      "variables": [
+        {
+          "name": "PP_BUILD",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "BUILD_SHARED_LIBS",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "IN_DEVELOPMENT",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
+    },
+    {
+      "name": "x64-Clang-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": ["clang_cl_x64_x64"],
+      "buildCommandArgs": "-v",
+      "xaddressSanitizerEnabled": true,
+      "variables": [
+        {
+          "name": "CMAKE_CXX_FLAGS",
+          "value": "-m64 -fdiagnostics-absolute-paths  /DWIN32 /D_WINDOWS /W2 /GR /EHsc ",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_FLAGS_DEBUG",
+          "value": "/MDd /Zi /Ob0 /Od /RTC1",
+          "type": "STRING"
+        },
+        {
+          "name": "PP_BUILD",
+          "value": "False",
+          "type": "BOOL"
+        }
+      ],
+      "intelliSenseMode": "windows-clang-x64"
+    },
+    {
+      "name": "x64-MSVC-RelWithDebInfo",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "inheritEnvironments": ["msvc_x64_x64"],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "xaddressSanitizerEnabled": true,
+      "variables": [
+        {
+          "name": "PP_BUILD",
+          "value": "False",
+          "type": "BOOL"
+        }
+      ],
+      "intelliSenseMode": "windows-msvc-x64"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+/home/stoked/repos/nog/build/linux-clang-debug/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nog/CMakeFiles/nog.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nog/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nog/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nogcl/CMakeFiles/nogcl.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nogcl/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/nogcl/CMakeFiles/rebuild_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/scratch/CMakeFiles/scratch.dir
+/home/stoked/repos/nog/build/linux-clang-debug/scratch/CMakeFiles/edit_cache.dir
+/home/stoked/repos/nog/build/linux-clang-debug/scratch/CMakeFiles/rebuild_cache.dir
