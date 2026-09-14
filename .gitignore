@@ -1,0 +1,51 @@
+
+# =========================================================================
+# Compiled Binaries and Objects
+# =========================================================================
+# Intermediate object files
+*.o
+*.obj
+*.slo
+*.lo
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Compiled static and dynamic libraries
+*.a
+*.la
+*.lai
+*.lib
+*.so
+*.dylib
+*.dll
+
+# =========================================================================
+# Build Directories and Tooling
+# =========================================================================
+# Standard build outputs
+[Bb]uild/
+build-*/
+out/
+bin/
+obj/
+
+# CMake artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+
+.cache/
+
+# =========================================================================
+# Linux & System Files
+# =========================================================================
+.Trash-*
+.nfs*
+*.log
+*.tmp
+*.swp
